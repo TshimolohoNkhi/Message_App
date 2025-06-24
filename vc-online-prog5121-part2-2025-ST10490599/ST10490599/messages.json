@@ -1,0 +1,26 @@
+{
+  "0982605115": {
+    "messageID": "0982605115",
+    "messageHash": "09:2:IT!",
+    "recipientCell": "0838884567",
+    "message": "it is dinner time !"
+  },
+  "5258831419": {
+    "messageID": "5258831419",
+    "messageHash": "52:0:DIDCAKE?",
+    "recipientCell": "+27834557896",
+    "message": "Did you get the cake?"
+  },
+  "3203089983": {
+    "messageID": "3203089983",
+    "messageHash": "32:3:OK,YOU.",
+    "recipientCell": "+27838884567",
+    "message": "Ok, I am leaving without you."
+  },
+  "8233619796": {
+    "messageID": "8233619796",
+    "messageHash": "82:1:WHERETIME.",
+    "recipientCell": "+27838884567",
+    "message": "Where are you? You are late! I have asked you to be on time."
+  }
+}
