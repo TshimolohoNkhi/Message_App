@@ -25,5 +25,5 @@ jobs:
         
       - name: Build with Maven
         run: |
-          cd vc-online-prog5121-poe-2025-ST10490599/ST10490599
+          cd vc-online-prog5121-part2-2025-ST10490599/ST10490599
           mvn clean package
