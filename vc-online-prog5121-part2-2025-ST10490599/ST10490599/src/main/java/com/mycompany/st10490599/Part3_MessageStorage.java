@@ -16,7 +16,9 @@ import com.google.gson.reflect.TypeToken;
  * using internal static arrays for a simplified message system.
  */
 public class Part3_MessageStorage {
-    
+
+    public static boolean isTesting = false; // Used to switch between GUI and console output during testing
+
     // Static arrays to store messages and associated metadata (max 10)
     static String[] sentMessages = new String[10]; // (OpenAI, 2021)
     static String[] disregardMessages = new String[10];
@@ -25,13 +27,12 @@ public class Part3_MessageStorage {
     static String[] messageIDs = new String[10];
     static String[] recipientCells = new String[10];
     static String[] senderPhones = new String[10];
-    
+
     /*
      * Populates internal arrays from the given dataStore map.
      * This should be called after sending or storing messages.
      */
     public static void populateMessages(HashMap<String, Part2_MessageData> dataStore) { // (OpenAI, 2021)
-        
         for (int i = 0; i < 10; i++) {
             sentMessages[i] = null;
             messageHashes[i] = null;
@@ -59,10 +60,7 @@ public class Part3_MessageStorage {
      * Displays all sent messages along with their IDs and recipients.
      */
     public static void displayAll() {
-        displayAll(false);
-    }
-    public static void displayAll(boolean useConsole) {
-        StringBuilder result = new StringBuilder("Sent Messages:\n");
+        StringBuilder result = new StringBuilder("Sent Messages:\n"); // (GeeksforGeeks, 2025)
         boolean anyMessagesFound = false;
 
         for (int i = 0; i < sentMessages.length; i++) {
@@ -78,41 +76,37 @@ public class Part3_MessageStorage {
             result.append("No messages sent yet.");
         }
 
-        if (useConsole) {
-            System.out.println(result.toString());
-        } else {
-            JOptionPane.showMessageDialog(null, result.toString());
-        }
+        show(result.toString());
     }
-    
+
     /*
      * Finds and displays the longest message in the list.
      */
     public static void displayLongest() {
-        displayLongest(false);
-    }
-    public static void displayLongest(boolean useConsole) {
         String longest = "";
-        for (String message: sentMessages) {
-            if (message != null && message.length() > longest.length()){
+        for (String message : sentMessages) {
+            if (message != null && message.length() > longest.length()) { // (GeeksforGeeks, 2024)
                 longest = message;
             }
         }
+
         if (longest.isEmpty()) {
-            if (useConsole) System.out.println("No messages to display longest from.");
-            else JOptionPane.showMessageDialog(null, "No messages to display longest from.");
+            show("No messages to display longest from."); // (W3Schools, 2025)
         } else {
-            if (useConsole) System.out.println("Longest Message:\n" + longest);
-            else JOptionPane.showMessageDialog(null, "Longest Message:\n" + longest);
+            show("Longest Message:\n" + longest); // (W3Schools, 2025)
         }
     }
     
     /*
-     * Searches for a message by ID and displays its details.
+     * Default method used in GUI
      */
     public static void searchByID() {
         searchByID(false);
     }
+
+    /*
+     * Searches for a message by ID and displays its details.
+     */
     public static void searchByID(boolean useConsole) {
         String input;
         if (useConsole) {
@@ -127,7 +121,10 @@ public class Part3_MessageStorage {
         boolean found = false;
         for (int i = 0; i < messageIDs.length; i++) {
             if (messageIDs[i] != null && messageIDs[i].equals(input)) {
-                String message = "Message Found:\n" + "Message ID: " + messageIDs[i] + "\n" + "Recipient: " + recipientCells[i] + "\n" + "Message: " + sentMessages[i];
+                String message = "Message Found:\n" +
+                                 "Message ID: " + messageIDs[i] + "\n" +
+                                 "Recipient: " + recipientCells[i] + "\n" +
+                                 "Message: " + sentMessages[i];
                 if (useConsole) System.out.println(message);
                 else JOptionPane.showMessageDialog(null, message);
                 found = true;
@@ -139,23 +136,13 @@ public class Part3_MessageStorage {
             else JOptionPane.showMessageDialog(null, "Message ID not found.");
         }
     }
-    
+
     /*
      * Displays all messages sent to a specific recipient.
      */
     public static void searchByRecipient() {
-        searchByRecipient(false);
-    }
-    public static void searchByRecipient(boolean useConsole) {
-        String input;
-        if (useConsole) {
-            System.out.print("Enter Recipient to search: ");
-            Scanner sc = new Scanner(System.in);
-            input = sc.nextLine();
-        } else {
-            input = JOptionPane.showInputDialog("Enter Recipient to search: ");
-            if (input == null) return; // Handle cancel
-        }
+        String input = prompt("Enter Recipient to search: ");
+        if (input == null) return;
 
         StringBuilder foundMessages = new StringBuilder();
         for (int i = 0; i < recipientCells.length; i++) {
@@ -165,12 +152,24 @@ public class Part3_MessageStorage {
             }
         }
         if (foundMessages.length() > 0) {
-            if (useConsole) System.out.println("Messages to Recipient " + input + ":\n" + foundMessages);
-            else JOptionPane.showMessageDialog(null, "Messages to Recipient " + input + ":\n" + foundMessages);
+            show("Messages to Recipient " + input + ":\n" + foundMessages);
+        } else {
+            show("No message found for recipient " + input + ".");
         }
-        else {
-            if (useConsole) System.out.println("No message found for recipient " + input + ".");
-            else JOptionPane.showMessageDialog(null, "No message found for recipient " + input + ".");
+    }
+    
+    /*
+     * Ensures all arrays are cleared before testing
+     */
+    public static void clearAllMessages() {
+        for (int i = 0; i < 10; i++) {
+            sentMessages[i] = null;
+            disregardMessages[i] = null;
+            storedMessages[i] = null;
+            messageHashes[i] = null;
+            messageIDs[i] = null;
+            recipientCells[i] = null;
+            senderPhones[i] = null;
         }
     }
 
@@ -180,12 +179,13 @@ public class Part3_MessageStorage {
     public static void deleteByHash() {
         deleteByHash(false);
     }
+
     public static void deleteByHash(boolean useConsole) {
         String input;
         if (useConsole) {
             System.out.print("Enter Message Hash to delete: ");
             Scanner sc = new Scanner(System.in);
-            input = sc.nextLine();
+            input = sc.nextLine(); // (W3Schools, 2025)
         } else {
             input = JOptionPane.showInputDialog("Enter Message Hash to delete:");
             if (input == null) return;
@@ -194,7 +194,7 @@ public class Part3_MessageStorage {
         boolean found = false;
         for (int i = 0; i < messageHashes.length; i++) {
             if (messageHashes[i] != null && messageHashes[i].equals(input)) {
-                String message = "Deleting: " + sentMessages[i];
+                String message = "Deleting: " + sentMessages[i]; // (OpenAI, 2021)
                 if (useConsole) System.out.println(message);
                 else JOptionPane.showMessageDialog(null, message);
 
@@ -202,6 +202,7 @@ public class Part3_MessageStorage {
                 messageHashes[i] = null;
                 messageIDs[i] = null;
                 recipientCells[i] = null;
+                senderPhones[i] = null;
                 found = true;
                 break;
             }
@@ -211,14 +212,11 @@ public class Part3_MessageStorage {
             else JOptionPane.showMessageDialog(null, "Hash not found.");
         }
     }
-    
+
     /*
      * Displays a full report of all sent messages with hashes and metadata.
      */
     public static void displayReport() {
-        displayReport(false);
-    }
-    public static void displayReport(boolean useConsole) {
         StringBuilder report = new StringBuilder("Report of Sent Messages:\n");
         boolean hasMessages = false;
         for (int i = 0; i < sentMessages.length; i++) {
@@ -232,33 +230,26 @@ public class Part3_MessageStorage {
             }
         }
         if (hasMessages) {
-            if (useConsole) System.out.println(report.toString());
-            else JOptionPane.showMessageDialog(null, report.toString());
+            show(report.toString()); // (W3Schools, 2025)
         } else {
-            if (useConsole) System.out.println("No sent messages to display in report.");
-            else JOptionPane.showMessageDialog(null, "No sent messages to display in report.");
+            show("No sent messages to display in report."); // (W3Schools, 2025)
         }
     }
-    
+
     /*
      * Adds a disregarded message to the disregard list.
      */
     public static void disregardMessage(String message) { // (OpenAI, 2021)
-        disregardMessage(message, false);
-    }
-    public static void disregardMessage(String message, boolean useConsole) { // (OpenAI, 2021)
         for (int i = 0; i < disregardMessages.length; i++) {
             if (disregardMessages[i] == null) {
                 disregardMessages[i] = message;
-                if (useConsole) System.out.println("Message has been disregarded and stored.");
-                else JOptionPane.showMessageDialog(null, "Message has been disregarded and stored.");
+                show("Message has been disregarded and stored.");
                 return;
             }
         }
-        if (useConsole) System.out.println("Disregard message list is full.");
-        else JOptionPane.showMessageDialog(null, "Disregard message list is full.");
+        show("Disregard message list is full.");
     }
-    
+
     /*
      * Loads stored messages from the messages.json file (used for test messages).
      */
@@ -274,13 +265,32 @@ public class Part3_MessageStorage {
                     storedMessages[i++] = msg.getMessageText();
                 }
             }
-            JOptionPane.showMessageDialog(null, "Stored messages loaded from JSON.");
+            show("Stored messages loaded from JSON.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error loading messages: " + e.getMessage());
+            show("Error loading messages: " + e.getMessage());
         }
     }
 
+    // ========== Utility Methods ==========
+    private static void show(String message) { // (OpenAI, 2021)
+        if (isTesting) {
+            System.out.println(message);
+        } else {
+            JOptionPane.showMessageDialog(null, message);
+        }
+    }
+
+    private static String prompt(String message) { // (OpenAI, 2021)
+        if (isTesting) {
+            System.out.println("[INPUT PROMPT] " + message);
+            Scanner sc = new Scanner(System.in);
+            return sc.nextLine();
+        } else {
+            return JOptionPane.showInputDialog(null, message);
+        }
+    }
 }
+
 
 
 
