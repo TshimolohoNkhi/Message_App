@@ -45,7 +45,8 @@ ST10490599/
 │ └── test/java/... # JUnit test cases
 └── messages.json # Sample message storage file
 ```
-## 🛠️ Technical Implementation
+## 🖼️ Screenshots
+<img width="430" height="303" alt="Screenshot 2025-09-10 at 20 56 01" src="https://github.com/user-attachments/assets/56f742e0-7d25-4c67-ad74-cd6b6eff3b39" />
 
 ### Technologies Used
 - **Java 8+**: Core programming language  
