@@ -1,6 +1,6 @@
 # Message_App
 
-A Java-based application that simulates a simplified messaging system with features for message creation, validation, storage, and retrieval. It provides a user-friendly interface for sending messages, generating unique identifiers, and managing stored message data.
+An academic Java-based project that simulates a simplified messaging system with features for message creation, validation, storage, and retrieval. It provides a user-friendly interface for sending messages, generating unique identifiers, and managing stored message data.
 
 ## 💼 Portfolio Project
 
